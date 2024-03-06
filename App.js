@@ -1,31 +1,21 @@
-import React from "react";
-import { StyleSheet,StatusBar, SafeAreaView } from "react-native";
-import Header from "./src/components/Header";
-import AlbumList from "./src/components/AlbumList";
-import HitSongs from "./src/components/HitSongs";
+import 'react-native-gesture-handler';
+import React from 'react';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { NativeBaseProvider } from 'native-base';
 
-
+import Navigation from './src/navigation';
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar />
-      <Header />
-      <HitSongs />
-      <AlbumList />
-    </SafeAreaView>
-  );
-};
+    <SafeAreaProvider>
+       <SafeAreaView style={{ flex: 1 }}> 
+        <NativeBaseProvider>
+          <Navigation />
+        </NativeBaseProvider>
+       </SafeAreaView> 
+    </SafeAreaProvider>
 
-const styles = StyleSheet.create({
-  container: {
-    fontFamily: 'Cochin',
-  
-    color: '5588ff',
-    flex: 1,
-    backgroundColor:'#000',
-    
-  },
-});
+  );
+}
 
 export default App;
