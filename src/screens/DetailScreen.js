@@ -34,17 +34,13 @@ const DetailScreen = ({ route }) => {
         }}
         >{description}
       </Text>
-      <TouchableOpacity style={styles.button} onPress={() => openWebpage()}>
+      <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText} >BUY NOW FOR $46.99</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 }
 
-const openWebpage = () => {
-  const url = 'https://www.amazon.com/-/zh_TW/Dana-Thomas/dp/0735224013'; 
-  Linking.openURL(url);
-};
 
 const styles = StyleSheet.create({
   detailContent: {
