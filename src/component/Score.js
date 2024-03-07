@@ -1,30 +1,18 @@
 import React from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
-const StarList = ({star}) => {
-  let starList = [];
-
-  for(let i=1;i<=5;i++){
-    if (star>=i){
-      starList.push(<Image source={require('../img/icon_star_filled.png')} style={styles.stars} key={i}/>)
-    } else {
-      starList.push(<Image source={require('../img/icon_star_empty.png')} style={styles.stars} key={i}/>)
-    }
-  }
+const Score = ({star}) => {
 
   return (
-    <View style={styles.starList}>
-      {starList}
-    </View>
+    <Text style={styles.score}>
+      {star}.0 <Text style={styles.scoreNum}>/ 5.0</Text>
+    </Text>
   );  
 };
 
 const styles = StyleSheet.create({
-  starList: {
-    flexDirection: "row"
-  },
-  stars: {
-    marginRight: 4
+  screenNum:{
+    color: "#131313"
   }
 })
-export default StarList;
+export default Score;

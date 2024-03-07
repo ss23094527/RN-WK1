@@ -9,7 +9,10 @@
          "starDisplay": false,
          "image": "https://github.com/ss23094527/WK3-BookAPP/blob/main/src/img/img_book_fashinopolis.png?raw=true",
          "description": "We're no strangers to love",
+         "score": "4.6",
+         "star": 4,
          "price": 10.99
+         
        },
        {
          "title": "Chanel",
@@ -17,6 +20,8 @@
          "starDisplay": false,
          "image": "https://github.com/ss23094527/WK3-BookAPP/blob/main/src/img/img_book_chanel.png?raw=true",
          "description": "You know the rules and so do I",
+         "score": "4.9",
+         "star": 4,
          "price": 20.99
        },
        {
@@ -25,6 +30,8 @@
          "starDisplay": false,
          "image": "https://github.com/ss23094527/WK3-BookAPP/blob/main/src/img/img_book_calligraphy.png?raw=true",
          "description": "A full commitment's what I'm thinking of",
+         "score": "4.6",
+         "star": 4.0,
          "price": 30.99
        }
      ]
@@ -38,6 +45,7 @@
          "artist": "Suzy Menkes ",
          
          "image": "https://github.com/ss23094527/WK3-BookAPP/blob/main/src/img/img_book_ysl.png?raw=true",
+         "score": "4.0",
          "star": 4,
          "starDisplay": true,
          "description": "A spectacular visual journey through 40 years of haute couture from one of the best-known and most trend-setting brands in fashion.",
@@ -48,6 +56,7 @@
          "artist": "Rudolf Koch ",
          "starDisplay": true,
          "image": "https://github.com/ss23094527/WK3-BookAPP/blob/main/src/img/img_book_tbos.png?raw=true",
+         "score": "3.0",
          "star": 3,
          "description": "You wouldn't get this from any other guy",
          "price": 87.95
@@ -57,6 +66,7 @@
          "artist": "Tansy E. Hoskins",
          "starDisplay": true,
          "image": "https://github.com/ss23094527/WK3-BookAPP/blob/main/src/img/img_book_stitchedup.png?raw=true",
+         "score": "3.0",
          "star": 3,
          "description": "I just wanna tell you how I'm feeling",
          "price": 37.27

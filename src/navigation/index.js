@@ -1,11 +1,17 @@
-import React, {useState} from 'react';
+
+import React, { useState } from 'react';
+import {
+  createDrawerNavigator, DrawerContentScrollView,
+  DrawerItemList,
+} from '@react-navigation/drawer';
 import { NavigationContainer, useTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import { createDrawerNavigator } from '@react-navigation/drawer';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { Divider, Image, Input, HStack, Text, Pressable } from 'native-base';
+
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { TextInput,StyleSheet } from 'react-native';
+import { Divider, Image, Input, HStack, Text, Pressable, Center } from 'native-base';
 
 import HomeScreen from '../screens/HomeScreen';
 import DetailScreen from '../screens/DetailScreen';
@@ -18,14 +24,14 @@ import MyTheme from '../../Theme';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-// const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator();
 
 
 const Navigation = () => {
   return (
     <NavigationContainer theme={MyTheme}>
-     {/* <MyDrawer /> */}
-      <MyTabs/>
+      <MyDrawer />
+
     </NavigationContainer>
   );
 }
@@ -38,34 +44,39 @@ const CustomDrawerContent = (props) => {
       contentContainerStyle={{ paddingTop: 0 }}
     >
       <Image
+        w={10}
         h={10}
+        marginTop={20}
+        margin={5}
         source={require("../img/img_avatar.png")}
-        alt='albumImage'
+        alt='userImage'
       />
+      <Text style={styles.user}>May</Text>
+      <Divider my="2" />
       <DrawerItemList {...props} />
-      <Divider my="2"/>
-    </DrawerContentScrollView>
+
+    </DrawerContentScrollView> //Drawer user name&icon
   );
 }
 
+//左滑抽屜
 const MyDrawer = () => {
-  const { colors } = useTheme();
 
   return (
     <Drawer.Navigator
       initialRouteName="HomeStack"
       screenOptions={{
-        drawerActiveBackgroundColor: colors.primary100,
-        drawerActiveTintColor: colors.primary700,
-        drawerInactiveTintColor: colors.light500,
+        drawerActiveBackgroundColor: 'white',
+        drawerActiveTintColor: '#6200EE',
+        drawerInactiveTintColor: 'gray',
         drawerStyle: { width: 250 },
-        drawerLabelStyle: { fontSize: 18, fontWeight: '400' },
+        drawerLabelStyle: { fontSize: 14, fontWeight: '400' },
       }}
       drawerContent={props => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen
-        name="HomeStack"
-        component={HomeStack}
+        name="MyTabs"
+        component={MyTabs}
         options={{
           headerShown: false,
           drawerLabel: "Home",
@@ -90,7 +101,7 @@ const MyDrawer = () => {
         component={SettingsStack}
         options={{
           headerShown: false,
-          drawerLabel: "Settings",
+          drawerLabel: "Setting",
           drawerIcon: ({ color }) => (
             <MaterialCommunityIcons name="cog" color={color} size={26} />
           ),
@@ -100,6 +111,7 @@ const MyDrawer = () => {
   );
 }
 
+//底部導覽列
 const MyTabs = () => {
   const { colors } = useTheme();
 
@@ -111,20 +123,21 @@ const MyTabs = () => {
         headerShown: false
       }}
     >
-      <Tab.Screen 
-        name="HomeStack" 
+      <Tab.Screen
+        name="HomeStack"
         component={HomeStack}
         options={{
           headerShown: false,
           title: "Home",
+          titleStyle: { fontWeight: 'bold' },
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+            <MaterialCommunityIcons name="home" color={color} size={26}  />
           ),
         }}
       />
-      <Tab.Screen 
-        name="WishlistStack" 
-        component={WishlistStack} 
+      <Tab.Screen
+        name="WishlistStack"
+        component={WishlistStack}
         options={{
           headerShown: false,
           title: "Wishlist",
@@ -133,9 +146,9 @@ const MyTabs = () => {
           ),
         }}
       />
-      <Tab.Screen 
-        name="MyBooksStack" 
-        component={MyBooksStack} 
+      <Tab.Screen
+        name="MyBooksStack"
+        component={MyBooksStack}
         options={{
           headerShown: false,
           title: "My books",
@@ -148,7 +161,10 @@ const MyTabs = () => {
   );
 }
 
+
 const SettingsStack = ({ navigation }) => {
+
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -164,7 +180,7 @@ const SettingsStack = ({ navigation }) => {
             <MaterialCommunityIcons
               name={'menu'}
               size={20}
-              // onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.openDrawer()}
               style={{ marginRight: 20 }}
             />
           ),
@@ -188,43 +204,55 @@ const SettingsStack = ({ navigation }) => {
 const HomeStack = ({ navigation }) => {
   const [toggle, setToggle] = useState(true);
   const toggleFunction = () => {
-      setToggle(!toggle);
+    setToggle(!toggle);
   };
+  const [searchVisible, setSearchVisible] = useState(false); 
 
   return (
-    <Stack.Navigator
-    // screenOptions={{
-    //   headerShown: false
-    // }}
-    >
+    <Stack.Navigator>
       <Stack.Screen
         name="Home"
         component={HomeScreen}
         options={{
           title: "",
-          headerShadowVisible:false,
+          headerShadowVisible: false,
           headerTitleStyle: {
             elevation: 0,
-            backgroundColor:"#fff",
+            backgroundColor: "#fff",
             shadowOpacity: 0,
-            shadowOffset:0,
+            shadowOffset: 0,
+            
           },
           headerLeft: () => (
             <MaterialCommunityIcons
               name={'menu'}
               size={28}
-              // onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.openDrawer()} //左邊菜單
             />
           ),
           headerRight: () => (
-            <MaterialCommunityIcons
-              name={'magnify'}
-              size={28}
-              // style={{ marginRight: 8 }}
-            />
-          )
+            <>
+              <Pressable onPress={() => setSearchVisible(true)}>
+                <MaterialCommunityIcons
+                  name={'magnify'}
+                  size={28} //右邊搜尋列
+                />
+              </Pressable> 
+
+              {/* 搜尋輸入列 */}
+              {searchVisible && (
+                <TextInput
+                  style={{ flex: 1, marginRight: 10 }}
+                  placeholder="Search..."
+                  onChangeText={(text) => console.log('Searching for:', text)}
+                  onBlur={() => setSearchVisible(false)} 
+                />
+              )}
+            </>
+          ),
         }}
       />
+
       <Stack.Screen
         name="Detail"
         component={DetailScreen}
@@ -233,7 +261,7 @@ const HomeStack = ({ navigation }) => {
           headerStyle: {
             backgroundColor: '#fff',
           },
-          headerShadowVisible:false,
+          headerShadowVisible: false,
           headerTintColor: '#000',
           headerTitleStyle: {
             fontWeight: '400',
@@ -243,14 +271,14 @@ const HomeStack = ({ navigation }) => {
             <MaterialCommunityIcons
               name={'chevron-left'}
               size={30}
-              onPress={() =>navigation.goBack(null)}
+              onPress={() => navigation.goBack(null)}
               style={{ marginLeft: 8 }}
             />
           ),
           headerRight: () => (
             <Pressable onPress={() => toggleFunction()}>
-            {toggle ? <MaterialCommunityIcons name={'bookmark-outline'} color={'black'} size={26} />:
-                      <MaterialCommunityIcons name={'bookmark'} color={'#6200EE'} size={26} />}
+              {toggle ? <MaterialCommunityIcons name={'bookmark-outline'} color={'black'} size={26} /> :
+                <MaterialCommunityIcons name={'bookmark'} color={'#6200EE'} size={26} />}
             </Pressable>
           ),
         })}
@@ -275,7 +303,7 @@ const AccountStack = ({ navigation }) => {
             <MaterialCommunityIcons
               name={'menu'}
               size={20}
-              // onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.openDrawer()}
               style={{ marginRight: 20 }}
             />
           ),
@@ -301,14 +329,14 @@ const WishlistStack = ({ navigation }) => {
             <MaterialCommunityIcons
               name={'menu'}
               size={28}
-              // onPress={() => navigation.openDrawer()}
+           onPress={() => navigation.openDrawer()}
             />
           ),
           headerRight: () => (
             <MaterialCommunityIcons
               name={'magnify'}
               size={28}
-              // style={{ marginRight: 8 }}
+            
             />
           )
         }}
@@ -333,14 +361,14 @@ const MyBooksStack = ({ navigation }) => {
             <MaterialCommunityIcons
               name={'menu'}
               size={28}
-              // onPress={() => navigation.openDrawer()}
+              onPress={() => navigation.openDrawer()}
             />
           ),
           headerRight: () => (
             <MaterialCommunityIcons
               name={'magnify'}
               size={28}
-              // style={{ marginRight: 8 }}
+           
             />
           )
         }}
@@ -350,3 +378,13 @@ const MyBooksStack = ({ navigation }) => {
 }
 
 export default Navigation;
+
+const styles = StyleSheet.create({
+  user: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    marginLeft: 20,
+    marginBottom: 20,
+  },
+});
